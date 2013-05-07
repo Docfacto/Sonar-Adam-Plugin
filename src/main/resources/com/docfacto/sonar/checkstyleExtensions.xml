@@ -1,0 +1,162 @@
+<rules>
+<rule>
+<key>com.docfacto.sonar.checks.MissingPackageDocumentationCheck</key>
+<name>Docfacto Adam: Missing package documentation</name>
+<configKey>Checker/com.docfacto.sonar.checks.MissingPackageDocumentationCheck</configKey>
+<description>Check for missing package-info or package.html</description>
+<category name="Usability" />
+</rule>
+<rule>
+<key>com.docfacto.sonar.checks.MissingRequiredPackageFilesCheck</key>
+<name>Docfacto Adam: Missing required package files</name>
+<configKey>Checker/com.docfacto.sonar.checks.MissingRequiredPackageFilesCheck</configKey>
+<description>Check for missing package files</description>
+<category name="Usability" />
+</rule>
+<rule>
+<key>com.docfacto.sonar.checks.ClassesWithoutJavadocCheck</key>
+<name>Docfacto Adam: Classes without Javadoc</name>
+<configKey>Checker/com.docfacto.sonar.checks.ClassesWithoutJavadocCheck</configKey>
+<description>Check for classes without Javadoc</description>
+<category name="Usability" />
+</rule>
+<rule>
+<key>com.docfacto.sonar.checks.InterfacesWithoutJavadocCheck</key>
+<name>Docfacto Adam: Interfaces without Javadoc</name>
+<configKey>Checker/com.docfacto.sonar.checks.InterfacesWithoutJavadocCheck</configKey>
+<description>Check for classes without Javadoc</description>
+<category name="Usability" />
+</rule>
+<rule>
+<key>com.docfacto.sonar.checks.EnumsWithoutJavadocCheck</key>
+<name>Docfacto Adam: Enums without Javadoc</name>
+<configKey>Checker/com.docfacto.sonar.checks.EnumsWithoutJavadocCheck</configKey>
+<description>Check for enums without Javadoc</description>
+<category name="Usability" />
+</rule>
+<rule>
+<key>com.docfacto.sonar.checks.EnumsConstantsWithoutJavadocCheck</key>
+<name>Docfacto Adam: Enums constants without Javadoc</name>
+<configKey>Checker/com.docfacto.sonar.checks.EnumsConstantsWithoutJavadocCheck</configKey>
+<description>Check for Enum constants without Javadoc</description>
+<category name="Usability" />
+</rule>
+<rule>
+<key>com.docfacto.sonar.checks.MethodsMissingJavadocCheck</key>
+<name>Docfacto Adam: Methods missing javadoc</name>
+<configKey>Checker/com.docfacto.sonar.checks.MethodsMissingJavadocCheck</configKey>
+<description>Check for missing javadoc on methods</description>
+<category name="Usability" />
+</rule>
+<rule>
+<key>com.docfacto.sonar.checks.MissingCommentEmptyJavadocCheck</key>
+<name>Docfacto Adam: Missing comment (empty javadoc)</name>
+<configKey>Checker/com.docfacto.sonar.checks.MissingCommentEmptyJavadocCheck</configKey>
+<description>Check for empty javadoc</description>
+<category name="Usability" />
+</rule>
+<rule>
+<key>com.docfacto.sonar.checks.InvalidThrowTagsCheck</key>
+<name>Docfacto Adam: Invalid throw tags</name>
+<configKey>Checker/com.docfacto.sonar.checks.InvalidThrowTagsCheck</configKey>
+<description>Check for invalid throw tags</description>
+<category name="Usability" />
+</rule>
+<rule>
+<key>com.docfacto.sonar.checks.InvalidParamTagsCheck</key>
+<name>Docfacto Adam: Invalid param tags</name>
+<configKey>Checker/com.docfacto.sonar.checks.InvalidParamTagsCheck</configKey>
+<description>Check for invalid param tags</description>
+<category name="Usability" />
+</rule>
+<rule>
+<key>com.docfacto.sonar.checks.InvalidReturnTagsCheck</key>
+<name>Docfacto Adam: Invalid return tags</name>
+<configKey>Checker/com.docfacto.sonar.checks.InvalidReturnTagsCheck</configKey>
+<description>Check for invalid return tags</description>
+<category name="Usability" />
+</rule>
+<rule>
+<key>com.docfacto.sonar.checks.MissingConstructorJavadocCheck</key>
+<name>Docfacto Adam: Missing constructor javadoc</name>
+<configKey>Checker/com.docfacto.sonar.checks.MissingConstructorJavadocCheck</configKey>
+<description>Check for missing javadoc for constructors</description>
+<category name="Usability" />
+</rule>
+<rule>
+<key>com.docfacto.sonar.checks.FieldsWithoutJavadocCheck</key>
+<name>Docfacto Adam: Fields without Javadoc</name>
+<configKey>Checker/com.docfacto.sonar.checks.FieldsWithoutJavadocCheck</configKey>
+<description>Check for fields without Javadoc</description>
+<category name="Usability" />
+</rule>
+<rule>
+<key>com.docfacto.sonar.checks.MissingRequiredTagsCheck</key>
+<name>Docfacto Adam: Missing required tags</name>
+<configKey>Checker/com.docfacto.sonar.checks.MissingRequiredTagsCheck</configKey>
+<description>Check for missing required tags</description>
+<category name="Usability" />
+</rule>
+<rule>
+<key>com.docfacto.sonar.checks.MissingTagDescriptionCheck</key>
+<name>Docfacto Adam: Missing tag description</name>
+<configKey>Checker/com.docfacto.sonar.checks.MissingTagDescriptionCheck</configKey>
+<description>Check for missing tag description</description>
+<category name="Usability" />
+</rule>
+<rule>
+<key>com.docfacto.sonar.checks.MeaninglessCommentCheck</key>
+<name>Docfacto Adam: Meaningless comment</name>
+<configKey>Checker/com.docfacto.sonar.checks.MeaninglessCommentCheck</configKey>
+<description>Check for meaningless comment</description>
+<category name="Usability" />
+</rule>
+<rule>
+<key>com.docfacto.sonar.checks.MissingThrowsDescriptionCheck</key>
+<name>Docfacto Adam: Missing throws description</name>
+<configKey>Checker/com.docfacto.sonar.checks.MissingThrowsDescriptionCheck</configKey>
+<description>Check for missing throws description</description>
+<category name="Usability" />
+</rule>
+<rule>
+<key>com.docfacto.sonar.checks.MissingParamDescriptionCheck</key>
+<name>Docfacto Adam: Missing param description</name>
+<configKey>Checker/com.docfacto.sonar.checks.MissingParamDescriptionCheck</configKey>
+<description>Check for missing parameter description</description>
+<category name="Usability" />
+</rule>
+<rule>
+<key>com.docfacto.sonar.checks.MissingReturnDescriptionCheck</key>
+<name>Docfacto Adam: Missing return description</name>
+<configKey>Checker/com.docfacto.sonar.checks.MissingReturnDescriptionCheck</configKey>
+<description>Check for missing return description</description>
+<category name="Usability" />
+</rule>
+<rule>
+<key>com.docfacto.sonar.checks.WarningIfCommentContainsCheck</key>
+<name>Docfacto Adam: Warning if comment contains</name>
+<configKey>Checker/com.docfacto.sonar.checks.WarningIfCommentContainsCheck</configKey>
+<description>Warning if comment contains specified text</description>
+<category name="Usability" />
+</rule>
+<rule>
+<key>com.docfacto.sonar.checks.MissingDeprecatedDescriptionCheck</key>
+<name>Docfacto Adam: Missing deprecated description</name>
+<configKey>Checker/com.docfacto.sonar.checks.MissingDeprecatedDescriptionCheck</configKey>
+<description>Warning if comment contains a deprecated tag, but it doesn't have a description</description>
+<category name="Usability" />
+</rule>
+<rule>
+<key>com.docfacto.sonar.checks.MissingDeprecatedTagCheck</key>
+<name>Docfacto Adam: Missing deprecated tag</name>
+<configKey>Checker/com.docfacto.sonar.checks.MissingDeprecatedTagCheck</configKey>
+<description>Warning if an @Decprecated annotation is found, without a corresponding annotation tag</description>
+<category name="Usability" />
+</rule>
+<rule>
+<key>com.docfacto.sonar.checks.AdamletWarningsCheck</key>
+<name>Docfacto Adam: Adamlet warnings</name>
+<configKey>Checker/com.docfacto.sonar.checks.AdamletWarningsCheck</configKey>
+<description>Check for Adamlet Warnings</description>
+<category name="Usability" />
+</rule></rules>
