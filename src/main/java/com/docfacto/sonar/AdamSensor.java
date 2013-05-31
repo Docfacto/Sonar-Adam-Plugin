@@ -10,6 +10,7 @@ import org.sonar.api.batch.Sensor;
 import org.sonar.api.batch.SensorContext;
 import org.sonar.api.config.Settings;
 import org.sonar.api.measures.Measure;
+import org.sonar.api.measures.MeasureUtils;
 import org.sonar.api.measures.Metric;
 import org.sonar.api.resources.Project;
 import org.sonar.api.scan.filesystem.ModuleFileSystem;
@@ -24,11 +25,8 @@ import com.docfacto.output.generated.Statistic;
  * @author damonli - created Apr 22, 2013
  * @since 2.2.3
  */
-public class DocfactoSensor implements Sensor {
-
-    /**
-     * The extension of files which should be analysed
-     */
+public class AdamSensor implements Sensor {
+    
     private static final String ACCEPTED_FILE_EXTENSION = ".java";
 
     /**
@@ -44,7 +42,7 @@ public class DocfactoSensor implements Sensor {
      * @param settings the settings of the
      * @since 2.2.3
      */
-    public DocfactoSensor(ModuleFileSystem moduleFileSystem,Settings settings) {
+    public AdamSensor(ModuleFileSystem moduleFileSystem,Settings settings) {
         this.projectFileSystem = moduleFileSystem;
 
         AdamConfig.setConfigPath(settings.getString("sonar.docfacto.config"));
@@ -60,26 +58,16 @@ public class DocfactoSensor implements Sensor {
     }
 
     /**
-     * Retrieve statistics for a given project and then save them to the given
-     * SensorContext
-     * 
      * @see org.sonar.api.batch.Sensor#analyse(org.sonar.api.resources.Project,
      * org.sonar.api.batch.SensorContext)
      */
     public void analyse(Project project,SensorContext sensorContext) {
         setupMetricsProvider();
-
+        
         try {
-            List<Statistic> statisticsList = getStatisticsForProject();
-
-            for (Statistic statistic:statisticsList) {
-                String key = statistic.getRule().getKey();
-                String valueString = statistic.getValue()+"";
-
-                Metric metric = MetricsProvider.METRICS_PROVIDER.getMetricForKey(key);
-                if (metric!=null)
-                    saveMeasureToSensorContext(sensorContext,metric,Double.parseDouble(valueString));
-            }
+            saveStatisticsMeasures(sensorContext);
+            saveChartMeasures(sensorContext);
+            
         }
         catch (DocfactoException e) {
             e.printStackTrace();
@@ -88,6 +76,72 @@ public class DocfactoSensor implements Sensor {
             e.printStackTrace();
         }
     }
+
+    /**
+     * TODO - Method Title
+     * <p>
+     * TODO - Method Description
+     * </p>
+     * @param sensorContext
+     * @throws DocfactoException 
+     * @throws IOException 
+     * @since n.n
+     */
+    private void saveStatisticsMeasures(SensorContext sensorContext) throws IOException, DocfactoException {
+        List<Statistic> statisticsList = getStatisticsForProject();
+
+        for (Statistic statistic:statisticsList) {
+            String key = statistic.getRule().getKey();
+            String valueString = statistic.getValue()+"";
+
+            Metric metric = MetricsProvider.METRICS_PROVIDER.getMetricForKey(key);
+            if (metric!=null)
+                saveMeasureToSensorContext(sensorContext,metric,Double.parseDouble(valueString));
+        }
+    }
+    
+
+    /**
+     * TODO - Method Title
+     * <p>
+     * TODO - Method Description
+     * </p>
+     * @param sensorContext
+     * @since n.n
+     */
+    private void saveChartMeasures(SensorContext sensorContext) {
+        String barchart_values="";
+        
+        double percentageOfClassesWithJavadoc = getPercentageOfTypeWithJavadoc(sensorContext, AdamMetrics.CLASSES_PROCESSED, AdamMetrics.CLASSES_MISSING_JAVADOC);
+        sensorContext.saveMeasure(new Measure(SummaryMetrics.CLASSES_WITH_JAVADOC_PERCENTAGE, percentageOfClassesWithJavadoc));
+        
+        double percentageOfInterfacesWithJavadoc = getPercentageOfTypeWithJavadoc(sensorContext, AdamMetrics.INTERFACES_PROCESSED, AdamMetrics.INTERFACES_MISSING_JAVADOC);
+        sensorContext.saveMeasure(new Measure(SummaryMetrics.INTERFACES_WITH_JAVADOC_PERCENTAGE, percentageOfInterfacesWithJavadoc));
+        
+        double percentageOfEnumsWithJavadoc = getPercentageOfTypeWithJavadoc(sensorContext, AdamMetrics.ENUMS_PROCESSED, AdamMetrics.ENUMS_MISSING_JAVADOC);
+        sensorContext.saveMeasure(new Measure(SummaryMetrics.ENUMS_WITH_JAVADOC_PERCENTAGE, percentageOfEnumsWithJavadoc));
+        
+        double percentageOfMethodsWithJavadoc = getPercentageOfTypeWithJavadoc(sensorContext, AdamMetrics.METHODS_PROCESSED, AdamMetrics.METHODS_MISSING_COMMENT);
+        sensorContext.saveMeasure(new Measure(SummaryMetrics.METHODS_WITH_JAVADOC_PERCENTAGE, percentageOfMethodsWithJavadoc));
+        
+        double percentageOfConstructorsWithJavadoc = getPercentageOfTypeWithJavadoc(sensorContext, AdamMetrics.CONSTRUCTORS_PROCESSED, AdamMetrics.CONSTRUCTOR_MISSING_JAVADOC);
+        sensorContext.saveMeasure(new Measure(SummaryMetrics.CONSTRUCTORS_WITH_JAVADOC_PERCENTAGE, percentageOfConstructorsWithJavadoc));
+        
+        double percentageOfFieldsWithJavadoc = getPercentageOfTypeWithJavadoc(sensorContext, AdamMetrics.FIELD_PROCESSED, AdamMetrics.FIELD_MISSING_JAVADOC);
+        sensorContext.saveMeasure(new Measure(SummaryMetrics.FIELDS_WITH_JAVADOC_PERCENTAGE, percentageOfFieldsWithJavadoc));
+        
+        
+        barchart_values += getBarChartStringForValue("Classes", Double.toString(percentageOfClassesWithJavadoc))
+                               + getBarChartStringForValue("Interfaces", Double.toString(percentageOfInterfacesWithJavadoc))
+                               + getBarChartStringForValue("Enums", Double.toString(percentageOfEnumsWithJavadoc))
+                               + getBarChartStringForValue("Methods", Double.toString(percentageOfMethodsWithJavadoc))
+                               + getBarChartStringForValue("Constructors", Double.toString(percentageOfConstructorsWithJavadoc))
+                               + getBarChartStringForValue("Fields", Double.toString(percentageOfFieldsWithJavadoc));
+        
+        
+        sensorContext.saveMeasure(new Measure(SummaryMetrics.BARCHART, barchart_values));
+    }
+    
 
     /**
      * Set up the Metrics Provider to have all Metrics
@@ -99,7 +153,7 @@ public class DocfactoSensor implements Sensor {
      * @since 2.2.3
      */
     private void setupMetricsProvider() {
-        DocfactoMetrics docfactoMetrics = new DocfactoMetrics();
+        AdamMetrics docfactoMetrics = new AdamMetrics();
 
         for (Metric metric:docfactoMetrics.getMetrics())
             MetricsProvider.METRICS_PROVIDER.setNewKeyMetricPair(metric.getKey(),metric);
@@ -181,5 +235,32 @@ public class DocfactoSensor implements Sensor {
             }
         }
         return files;
+    }
+    
+    /**
+     * TODO - Method Title
+     * <p>
+     * TODO - Method Description
+     * </p>
+     * @param sensorContext
+     * @param numberOfTypeProcessedMetric
+     * @param numberOfTypeMissingJavadocMetric
+     * @return
+     * @since n.n
+     */
+    private double getPercentageOfTypeWithJavadoc(SensorContext sensorContext, Metric numberOfTypeProcessedMetric, Metric numberOfTypeMissingJavadocMetric) {
+        
+        double numberOfType = MeasureUtils.getValue(sensorContext.getMeasure(numberOfTypeProcessedMetric), 0.0);
+        if (numberOfType == 0.0)
+            return 100.0;
+        
+        double numberOfTypeWithoutJavadoc = MeasureUtils.getValue(sensorContext.getMeasure(numberOfTypeMissingJavadocMetric), 0.0);
+        double numberOfTypeWithJavadoc = numberOfType - numberOfTypeWithoutJavadoc;
+        double percentageOfTypeWithJavadoc = (numberOfTypeWithJavadoc / numberOfType) * 100;
+        return percentageOfTypeWithJavadoc;
+    }
+    
+    private String getBarChartStringForValue(String key, String value) {
+        return key + "=" + value + ";";
     }
 }

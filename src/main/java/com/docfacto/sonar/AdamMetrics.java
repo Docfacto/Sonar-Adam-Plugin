@@ -9,8 +9,7 @@ import org.sonar.api.measures.Metrics;
 /**
  * @docfacto.adam ignore
  */
-
-public final class DocfactoMetrics implements Metrics {
+public final class AdamMetrics implements Metrics {
 
     public static final Metric PACKAGES_PROCESSED = new Metric.Builder("packages-processed","Packages Processed",
         Metric.ValueType.INT)

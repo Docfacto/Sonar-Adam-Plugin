@@ -1,0 +1,91 @@
+<% barChartDistribution = measure("summary-barchart") %>
+
+<div class="dashbox">
+   <table>
+   		<tr>
+   			<td valign="top" width="40%">
+   				<table>
+   					<tr>
+   						<tr>
+   							<td align="left">
+   								<h3><%= message('docfacto.adam.summary.title') -%></h3>
+   								<br />
+   								
+   								<h3>Adam Violations</h3>
+   								<p>
+	   								<span class="big">
+	   									<%= format_measure('number-of-adam-violations') -%> <%= trend_icon('number-of-adam-violations') -%>
+	   								</span>
+   								</p>
+   								<p>
+   									<span class="small">(of Adam Rules which are enabled)</span>
+   								</p>
+   								<br />
+   								
+   								<h3>Documentation Coverage</h3>
+   								
+   								<table>
+   								
+   									<tr>
+   										<td align="right" width="40px">
+   										<p><%= format_measure('classes-with-javadoc-percentage') -%>%</p>
+   										</td>
+   										<td style="width:10px;"></td>
+   										<td><p>Classes <%= trend_icon('classes-with-javadoc-percentage') -%></p></td>
+   									</tr>
+   									
+   									<tr>
+   										<td align="right" width="40px">
+   										<p><%= format_measure('interfaces-with-javadoc-percentage') -%>%</p>
+   										</td>
+   										<td style="width:10px;"></td>
+   										<td><p>Interfaces <%= trend_icon('interfaces-with-javadoc-percentage') -%></p></td>
+   									</tr>
+   									
+   									<tr>
+   										<td align="right" width="40px">
+   										<p><%= format_measure('enums-with-javadoc-percentage') -%>%</p>
+   										</td>
+   										<td style="width:10px;"></td>
+   										<td><p>Enums <%= trend_icon('enums-with-javadoc-percentage') -%></p></td>
+   									</tr>
+   									
+   									<tr>
+   										<td align="right" width="40px">
+   										<p><%= format_measure('methods-with-javadoc-percentage') -%>%</p>
+   										</td>
+   										<td style="width:10px;"></td>
+   										<td><p>Methods <%= trend_icon('methods-with-javadoc-percentage') -%></p></td>
+   									</tr>
+   									
+   									<tr>
+   										<td align="right" width="40px">
+   										<p><%= format_measure('constructors-with-javadoc-percentage') -%>%</p>
+   										</td>
+   										<td style="width:10px;"></td>
+   										<td><p>Constructors <%= trend_icon('constructors-with-javadoc-percentage') -%></p></td>
+   									</tr>
+   									
+   									<tr>
+   										<td align="right" width="40px">
+   										<p><%= format_measure('fields-with-javadoc-percentage') -%>%</p>
+   										</td>
+   										<td style="width:10px;"></td>
+   										<td><p>Fields <%= trend_icon('fields-with-javadoc-percentage') -%></p></td>
+   									</tr>
+   								</table>
+   						</td>
+   					</tr>
+   				</table>
+   			</td>
+   			<td align="center" valign="middle" width="60%" nowrap>
+   				<table>
+				   <p>
+						<% query="ck=barChart&w=500&h=230&v=" + u(barChartDistribution.data) %> 		
+						<%= chart(query) -%>
+				   </p>
+   				</table>
+   			</td>
+   		</tr>
+   </table>
+</div>

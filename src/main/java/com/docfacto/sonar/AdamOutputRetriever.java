@@ -96,7 +96,10 @@ public enum AdamOutputRetriever {
      * Adam.
      * </p>
      * <p>
-     * The first set of arguments are for configuring javadoc to invoke the Adam
+     * The first argument notifies Adam to not output log messages
+     * </p>
+     * <p>
+     * The next set of arguments are for configuring javadoc to invoke the Adam
      * doclet with the doclet, config file.
      * <p>
      * <p>
@@ -119,6 +122,7 @@ public enum AdamOutputRetriever {
         List<String> argList = new ArrayList<String>();
         List<String> fileStringList = new ArrayList<String>();
 
+        argList.add("-quiet");
         argList.add("-doclet");
         argList.add("com.docfacto.doclets.adam.AdamDoclet");
         argList.add("-docletpath");

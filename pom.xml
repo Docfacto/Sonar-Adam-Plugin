@@ -6,9 +6,9 @@
 	<artifactId>docfacto-adam-plugin</artifactId>
 	<groupId>com.docfacto.sonar</groupId>
 	<packaging>sonar-plugin</packaging>
-	<version>2.2.3</version>
+	<version>2.3.0</version>
 
-	<name>Docfacto Sonar Extension Plugin</name>
+	<name>Docfacto Adam Sonar Extension Plugin</name>
 	<description>A sonar extension which uses Adam to check for documentation issues</description>
 
 	<dependencies>
@@ -27,7 +27,7 @@
 		<dependency>
 			<groupId>com.docfacto</groupId>
 			<artifactId>java-toolkit</artifactId>
-			<version>2.2.3</version>
+			<version>2.3.0</version>
 		</dependency>
 
 		<dependency>
@@ -36,7 +36,7 @@
 			<version>0.11.6</version>
 		</dependency>
 	</dependencies>
-	
+
 	<build>
 		<plugins>
 			<plugin>
@@ -45,12 +45,12 @@
 				<version>1.5</version>
 				<extensions>true</extensions>
 				<configuration>
-					<pluginClass>com.docfacto.sonar.DocfactoExtensionPlugin</pluginClass>
+					<pluginClass>com.docfacto.sonar.DocfactoAdamExtensionPlugin</pluginClass>
 					<pluginKey>docfacto</pluginKey>
 					<basePlugin>checkstyle</basePlugin>
 				</configuration>
 			</plugin>
-			
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -61,12 +61,14 @@
 					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
-		
+
+			<!-- 
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>versions-maven-plugin</artifactId>
 				<version>2.0</version>
 			</plugin>
+			 -->
 		</plugins>
 	</build>
 </project>
