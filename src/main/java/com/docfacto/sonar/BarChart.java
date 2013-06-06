@@ -116,6 +116,15 @@ public class BarChart extends AbstractChart {
         return plot;
     }
 
+    /**
+     * Get the dataset to be used for the bar chart
+     * <p>
+     * Get the values from the chart parameters to create a dataset which can be set into the bar chart.
+     * </p>
+     * @param params the chart parameters to get the values from the dataset
+     * @return the dataset to be used for the bar chart
+     * @since 2.3.0
+     */
     private DefaultCategoryDataset getDataset(ChartParameters params) {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         String[] values = params.getValues(VALUE_ID,"|");
@@ -123,6 +132,18 @@ public class BarChart extends AbstractChart {
         return dataset;
     }
 
+    /**
+     * Get the colors for the bar chart
+     * <p>
+     * Get the colors for the bar chart in a color array. A color array is returned so the bar chart can
+     * be colored according to the order and colors in the array. The color array is determined by the values
+     * from the chart parameters. If the percentage is high, the color will be green, otherwise it will be orange, 
+     * but if the value is too low, it will be red.
+     * </p>
+     * @param params the chart parameters to get the values from to work out the colors of the bar chart
+     * @return the array of the colors for the bar chart to base its colors off
+     * @since 2.3.0
+     */
     private Color[] getSeriesColors(ChartParameters params) {
 
         String[] keyAndValuePairs = params.getValues(VALUE_ID,";");
@@ -147,6 +168,17 @@ public class BarChart extends AbstractChart {
         return colors;
     }
 
+    /**
+     * Add values to a dataset
+     * <p>
+     * For a given array of values, add them to the dataset along with the unit of the value (%,grams,cm etc.) 
+     * so they can be displayed in the bar chart
+     * </p>
+     * @param values the values to be added to the dataset
+     * @param dataset the dataset to add the values to
+     * @param xAxisUnit the unit of the values to be tagged along to the values on the x axis
+     * @since 2.3.0
+     */
     private void addValuesToTheDataset(String[] values,DefaultCategoryDataset dataset,String xAxisUnit) {
         for (int i = 0;i<values.length;i++) {
             String[] valuePairs = values[i].split(";");

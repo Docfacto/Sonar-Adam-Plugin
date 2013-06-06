@@ -78,14 +78,17 @@ public class AdamSensor implements Sensor {
     }
 
     /**
-     * TODO - Method Title
+     * 
+     * Save the measures regarding the Statistics from Adam to the sensor context
      * <p>
-     * TODO - Method Description
+     * Get the measures for the statistics returned by Adam to the sensor context
      * </p>
-     * @param sensorContext
-     * @throws DocfactoException 
-     * @throws IOException 
-     * @since n.n
+     * @param sensorContext the sensor context of the sensor to save measures to
+     * @throws IOException There was an error when dealing with files in
+     * AdamOutputRetriever
+     * @throws DocfactoException There was an error with Adam in
+     * AdamOutputRetriever
+     * @since 2.3.0
      */
     private void saveStatisticsMeasures(SensorContext sensorContext) throws IOException, DocfactoException {
         List<Statistic> statisticsList = getStatisticsForProject();
@@ -102,12 +105,13 @@ public class AdamSensor implements Sensor {
     
 
     /**
-     * TODO - Method Title
+     * Save the measures regarding the chart to the sensor context
      * <p>
-     * TODO - Method Description
+     * Get the measures that are relevant to the chart and save them to the sensor context so the chart
+     * can get the correct values in the correct format
      * </p>
-     * @param sensorContext
-     * @since n.n
+     * @param sensorContext the sensor context of the sensor to save measures to
+     * @since 2.3.0
      */
     private void saveChartMeasures(SensorContext sensorContext) {
         String barchart_values="";
@@ -238,15 +242,17 @@ public class AdamSensor implements Sensor {
     }
     
     /**
-     * TODO - Method Title
+     * For a type, get the percentage that has been documented and save it to the sensor context.
      * <p>
-     * TODO - Method Description
+     * Get how much a type (class, interface, method etc.) has been documented by providing the necessary metrics for getting
+     * the number of that type and the number of that type which is missing documentation, and the sensor context from which to get
+     * these measures from.
      * </p>
-     * @param sensorContext
-     * @param numberOfTypeProcessedMetric
-     * @param numberOfTypeMissingJavadocMetric
-     * @return
-     * @since n.n
+     * @param sensorContext the sensor context of the sensor to get measures from
+     * @param numberOfTypeProcessedMetric the metric to get the number of the type which has been processed
+     * @param numberOfTypeMissingJavadocMetric the metric to get the number if the types which are missing documentation
+     * @return the percentage of the type which is missing documentation
+     * @since 2.3.0
      */
     private double getPercentageOfTypeWithJavadoc(SensorContext sensorContext, Metric numberOfTypeProcessedMetric, Metric numberOfTypeMissingJavadocMetric) {
         
@@ -260,6 +266,19 @@ public class AdamSensor implements Sensor {
         return percentageOfTypeWithJavadoc;
     }
     
+    /**
+     * Get the string for a key and value in a format which can be read by the bar chart.
+     * <p>
+     * The bar chart reads values in the string format: 
+     * key1=value1;key2=value2;key3=value3;
+     * For a given key and value, this will return it in the string format: "key=value;" so that it can be
+     * concatenated with other key and value pair strings to be read by the bar chart.
+     * </p>
+     * @param key the key for the key and value pair to be read by the chart
+     * @param value the value for the key and value pair to be read by the chart
+     * @return the string for the given key and value formatted to be read by the chart
+     * @since 2.3.0
+     */
     private String getBarChartStringForValue(String key, String value) {
         return key + "=" + value + ";";
     }
